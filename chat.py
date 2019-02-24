@@ -24,19 +24,3 @@ def handle_typing(json, method=['GET', 'POST']):
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, host='0.0.0.0')
-
-
-# TODO
-# - add commands:
-#   help
-#   settings
-#   styling (font-size, color)
-#   spam (repeat message)
-#   history
-#   change topic, background
-#   iframes, links
-#   show random porn video
-# - add porn sites support (iframes)
-# - fix emit event 'typing'
-# - add feature: paste image from clipboard, drag and drop image to send it
-
