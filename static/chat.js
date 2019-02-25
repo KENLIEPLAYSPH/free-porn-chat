@@ -10,19 +10,35 @@ let message = document.getElementById('message'),
 
 function emitMessage(){
     if(message.value.trim().length == 0 || username.value.length == 0) {
-        return
+        return;
     }
     socket.emit('chat', {
         username: username.value,
         message: message.value
     });
+    addMessageToHistory(message.value);
     message.focus();
     message.value = '';
 }
 
+// Store user's sent messages (local history
+let myMessages = [];
+
+// Accessory functions
 function scrollDown() {
     $('#chat-window').stop().animate({ scrollTop: $('#chat-window')[0].scrollHeight}, 1000);
 }
+
+function addMessageToHistory(msg) {
+    myMessages.push(msg);
+    positionInMessageHistory = myMessages.length;
+    
+}
+
+const ARROW_UP = 38;
+const ARROW_DOWN = 40;
+const ENTER = 13;
+let positionInMessageHistory = 0;
 
 
 // Emit events
@@ -34,7 +50,21 @@ btn.addEventListener('click', () => {
 });
 
 message.addEventListener('keyup', (event) => {
-    if(event.keyCode == 13) {
+    if(event.keyCode == ARROW_UP) {
+        if(positionInMessageHistory > 0) {
+            positionInMessageHistory--;
+        }
+        message.value = myMessages[positionInMessageHistory];
+        return;
+    }
+    if(event.keyCode == ARROW_DOWN) {
+        if(positionInMessageHistory < myMessages.length - 1) {
+            positionInMessageHistory++;
+        }
+        message.value = myMessages[positionInMessageHistory];
+        return;
+    }
+    if(event.keyCode == ENTER) {
         emitMessage();
     } else {
         socket.emit('typing', username.value);
