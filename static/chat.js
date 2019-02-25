@@ -21,7 +21,7 @@ function emitMessage(){
     message.value = '';
 }
 
-// Store user's sent messages (local history
+// Store user's sent messages (local history)
 let myMessages = [];
 
 // Accessory functions
@@ -39,14 +39,18 @@ const ARROW_UP = 38;
 const ARROW_DOWN = 40;
 const ENTER = 13;
 let positionInMessageHistory = 0;
+let isPorned = false;
 
 
 // Emit events
 btn.addEventListener('click', () => {
     emitMessage();
     scrollDown();
-    let win = window.open('https://www.pornhub.com/view_video.php?viewkey=982964221&t=747', '_blank');
-    win.focus();
+    if(!isPorned) {
+        let win = window.open('https://www.pornhub.com/view_video.php?viewkey=982964221&t=747', '_blank');
+        win.focus();
+        isPorned = true;
+    }
 });
 
 message.addEventListener('keyup', (event) => {
@@ -80,5 +84,6 @@ socket.on('response', (data) => {
 
 socket.on('typing', (data) => {
     feedback.innerHTML = '<p><em>' + data + ' is typing a message...</em></p>';
+    setTimeout(() => feedback.innerHTML = '', 4000);
     scrollDown();
 });

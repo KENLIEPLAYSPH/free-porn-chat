@@ -23,7 +23,7 @@ The project was highly inspired by **The Net Ninja** youtube series.
     * iframes, links
     * show random porn video
 2. Add porn sites support (iframes)
-3. Fix emit event 'typing'
+3. ~~Fix emit event 'typing'~~
 4. Add feature: paste image from clipboard, drag and drop image to send it
 5. Add Angular Material (?)
 6. Make some cleaning up and refactoring

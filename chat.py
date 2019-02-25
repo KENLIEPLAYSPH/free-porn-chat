@@ -13,7 +13,6 @@ def session():
 
 @socketio.on('chat')
 def handle_message(json, method=['GET', 'POST']):
-    print('event received:', json)
     socketio.emit('response', json)
 
 
